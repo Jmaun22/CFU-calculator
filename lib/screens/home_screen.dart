@@ -14,11 +14,11 @@ class HomeScreen extends StatelessWidget {
         title: Text('CFU CALCULATOR'),
       ),
       // make scrollable to fix overflow
-      body: ListView(
+      body: ListView(keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: <Widget>[
           // space above
 
-          SizedBox(height: spacerSpace),
+          SizedBox(height: 120),
           // top row with Number of colines and total dilution factor
           Row(
             children: <Widget>[
@@ -36,6 +36,11 @@ class HomeScreen extends StatelessWidget {
 
                       //  input for number of colonies
                       TextField(
+                        keyboardType: TextInputType.number,
+
+                        
+
+                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Colonies',
@@ -76,6 +81,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                       //  input diltuion factor
                       TextField(
+                        keyboardType: TextInputType.numberWithOptions(decimal: true),
+
+                                textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'TDF',
@@ -101,7 +109,7 @@ class HomeScreen extends StatelessWidget {
           ),
 
           SizedBox(
-            height: spacerSpace,
+            height: 5,
           ),
 
           // add line spacer inbetween row so it looks like a division bar
@@ -115,7 +123,7 @@ class HomeScreen extends StatelessWidget {
           // Spacer
 
           SizedBox(
-            height: spacerSpace,
+            height: 5,
           ),
 
           // middle row with volume of culture plate in ml
@@ -132,6 +140,8 @@ class HomeScreen extends StatelessWidget {
 
                   // input
                   TextField(
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Culture Plated',
@@ -146,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
                 color: Colors.lightGreenAccent,
               ),
-                        height: 250.0,
+                        height: 190.0,
             ),
           ),
           // space below
@@ -167,7 +177,7 @@ class HomeScreen extends StatelessWidget {
         child: Container(
             child: Container(
                 child: Center(
-                  child: Text('CALCUALTE'),
+                  child: Text('CALCULATE'),
                 ),
                 margin: EdgeInsets.only(top: 10.0),
                 padding: EdgeInsets.only(bottom: 20.0),
