@@ -4,9 +4,25 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
 
+import '../widgets/constants.dart';
+
 double spacerSpace = 40;
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+
+
+
+
+  double colonies = 0;
+  double tdf = 0;
+  double culture_plated = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +30,8 @@ class HomeScreen extends StatelessWidget {
         title: Text('CFU CALCULATOR'),
       ),
       // make scrollable to fix overflow
-      body: ListView(keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      body: ListView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: <Widget>[
           // space above
 
@@ -34,13 +51,25 @@ class HomeScreen extends StatelessWidget {
                         size: 70.0,
                       ),
 
+                      // number
+                      Text(
+                         colonies.toString(),
+                        style: inputCardStyle,
+                      ),
+
                       //  input for number of colonies
                       TextField(
+                          // controller:  myController ,
+                        onChanged: (text) {
+                          setState(() {
+                                 colonies = double.parse(text);
+                            
+                          });
+                 
+                        },
+                    
                         keyboardType: TextInputType.number,
-
-                        
-
-                         textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Colonies',
@@ -48,8 +77,9 @@ class HomeScreen extends StatelessWidget {
                       ),
 
                       FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text('NUMBER OF COLONIES')),
+                        fit: BoxFit.fitWidth,
+                        child: Text('NUMBER OF COLONIES'),
+                      ),
                       Text('NOC Result'),
                     ],
                   ),
@@ -79,11 +109,26 @@ class HomeScreen extends StatelessWidget {
                         Icons.science_outlined,
                         size: 70.0,
                       ),
+
+                      // number
+                      Text(
+                        tdf.toString(),
+                        style: inputCardStyle,
+                      ),
+
                       //  input diltuion factor
                       TextField(
-                        keyboardType: TextInputType.numberWithOptions(decimal: true),
-
-                                textAlign: TextAlign.center,
+                         onChanged: (text) {
+                          setState(() {
+                                 tdf = double.parse(text);
+                            
+                          });
+                   
+                          print('First text field: $colonies');
+                        },
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'TDF',
@@ -137,11 +182,24 @@ class HomeScreen extends StatelessWidget {
                     Icons.scatter_plot_outlined,
                     size: 70.0,
                   ),
+                  Text(
+                    culture_plated.toString(),
+                    style: inputCardStyle,
+                  ),
 
                   // input
                   TextField(
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
-                            textAlign: TextAlign.center,
+                     onChanged: (text) {
+                          setState(() {
+                               culture_plated = double.parse(text);
+                            
+                          });
+                   
+                          print('First text field: $colonies');
+                        },
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Culture Plated',
@@ -156,7 +214,7 @@ class HomeScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
                 color: Colors.lightGreenAccent,
               ),
-                        height: 190.0,
+              height: 200.0,
             ),
           ),
           // space below
