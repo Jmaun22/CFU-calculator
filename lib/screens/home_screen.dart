@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 
 import '../widgets/constants.dart';
 
+import '../models/calculator_brain.dart';
+import '../screens/results_display.dart';
+
 double spacerSpace = 40;
 
 class HomeScreen extends StatefulWidget {
@@ -14,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double colonies = 0;
+ int colonies = 0;
   double tdf = 0;
   double culture_plated = 0;
 
@@ -28,7 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CFU CALCULATOR', style: kCalculateBottomButtonStyle, ),
+        title: Text(
+          'CFU CALCULATOR',
+          style: kCalculateBottomButtonStyle,
+        ),
         backgroundColor: barColors,
       ),
       // make scrollable to fix overflow
@@ -67,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           // controller:  myController ,
                           onChanged: (text) {
                             setState(() {
-                              colonies = double.parse(text);
+                              colonies = int.parse(text);
                             });
                           },
 
@@ -76,11 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: '# of Colonies',
-                            
                           ),
                         ),
-
-                        
                       ],
                     ),
                     margin: EdgeInsets.all(12.0),
@@ -94,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // multiplation icon
                 Icon(
                   Icons.close,
-                  color:  textIconColors,
+                  color: textIconColors,
                   size: 30.0,
                 ),
 
@@ -134,9 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             hintText: 'Dilution Factor',
                           ),
                         ),
-              
+
                         // total dilution factor result
-                    
                       ],
                     ),
                     margin: EdgeInsets.all(12.0),
@@ -158,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // add line spacer inbetween row so it looks like a division bar
             const Divider(
               height: 20,
-              thickness: 5,
+              thickness: 2.5,
               indent: 20,
               endIndent: 20,
               color: Color(0xFFF37878),
@@ -175,6 +177,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 child: Column(
                   children: <Widget>[
+                    SizedBox(
+                      height: 35,
+                    ),
                     // cultured plate icon
                     Icon(
                       Icons.scatter_plot_outlined,
@@ -203,8 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         hintText: 'Culture Plated (mL)',
                       ),
                     ),
-                  
-                 
                   ],
                 ),
                 margin: EdgeInsets.all(12.0),
@@ -228,13 +231,25 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: GestureDetector(
         onTap: () {
-          // route to results page
-          print('tap tap');
+          CalculatorBrain calc = CalculatorBrain(
+              colonies: colonies, tdf: tdf, culture_plated: culture_plated);
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResultsDisplay(
+                cfuResult: calc.calculatorCFU(),
+              ),
+            ),
+          );
         },
         child: Container(
             child: Container(
                 child: Center(
-                  child: Text('CALCULATE',style: kCalculateBottomButtonStyle,),
+                  child: Text(
+                    'CALCULATE',
+                    style: kCalculateBottomButtonStyle,
+                  ),
                 ),
                 // margin: EdgeInsets.only(top: 10.0),
                 padding: EdgeInsets.only(bottom: 20.0),
